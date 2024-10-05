@@ -1,34 +1,34 @@
-let cOper = '';
-let pOper = '';
+let currOper = '';
+let prevOper = '';
 let operation = undefined;
 
 function clearDisplay() {
-    cOper = '';
-    pOper = '';
+    currOper = '';
+    prevOper = '';
     operation = undefined;
     updateDisplay('0');
 }
 
 function appendNumber(number) {
-    if (number === '.' && cOper.includes('.')) return;
-    cOper = cOper.toString() + number.toString();
-    updateDisplay(cOper);
+    if (number === '.' && currOper.includes('.')) return;
+    currOper = currOper.toString() + number.toString();
+    updateDisplay(currOper);
 }
 
 function chooseOperation(op) {
-    if (cOper === '') return;
-    if (pOper !== '') {
+    if (currOper === '') return;
+    if (prevOper !== '') {
         compute();
     }
     operation = op;
-    pOper = cOper;
-    cOper = '';
+    prevOper = currOper;
+    currOper = '';
 }
 
 function compute() {
     let val;
-    const prev = parseFloat(pOper);
-    const curr = parseFloat(cOper);
+    const prev = parseFloat(prevOper);
+    const curr = parseFloat(currOper);
     if (isNaN(prev) || isNaN(curr)) return;
     switch (operation) {
         case '+':
@@ -46,10 +46,10 @@ function compute() {
         default:
             return;
     }
-    cOper = val;
+    currOper = val;
     operation = undefined;
-    pOper = '';
-    updateDisplay(cOper);
+    prevOper = '';
+    updateDisplay(currOper);
 }
 
 function updateDisplay(content) {
